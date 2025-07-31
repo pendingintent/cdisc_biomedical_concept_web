@@ -11,7 +11,7 @@ export default function ViewEntries() {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/entries')
+    fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:4000'}/api/entries`)
       .then(res => res.ok ? res.json() : res.text().then(t => { throw new Error(t); }))
       .then(data => {
         if (data.length > 0) {
