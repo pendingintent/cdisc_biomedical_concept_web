@@ -32,13 +32,36 @@ app.post('/api/entry', async (req, res) => {
       return res.status(400).json({ error: `Missing field: ${col}` });
     }
   }
-  // Write to CSV
-  const csvWriter = createObjectCsvWriter({
-    path: CSV_PATH,
-    header: csvHeader.map(h => ({ id: h, title: h })),
-    append: true
-  });
+  // Check for duplicates before writing
   try {
+    // Read existing CSV data
+    let existingRows = [];
+    if (fs.existsSync(CSV_PATH)) {
+      const csvData = fs.readFileSync(CSV_PATH, 'utf8');
+      const lines = csvData.split('\n').filter(line => line.trim() !== '');
+      if (lines.length > 1) {
+        const headers = lines[0].split(',');
+        existingRows = lines.slice(1).map(line => {
+          const values = line.split(',');
+          const row = {};
+          headers.forEach((h, i) => { row[h] = values[i]; });
+          return row;
+        });
+      }
+    }
+    // Check for duplicate
+    const isDuplicate = existingRows.some(row =>
+      row['parent_bc_id'] === entry['parent_bc_id'] && row['dec_id'] === entry['dec_id']
+    );
+    if (isDuplicate) {
+      return res.status(409).json({ error: 'Duplicate entry: parent_bc_id and dec_id combination already exists.' });
+    }
+    // Write to CSV
+    const csvWriter = createObjectCsvWriter({
+      path: CSV_PATH,
+      header: csvHeader.map(h => ({ id: h, title: h })),
+      append: true
+    });
     await csvWriter.writeRecords([entry]);
     res.json({ success: true });
   } catch (err) {
