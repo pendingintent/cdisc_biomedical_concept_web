@@ -1,0 +1,44 @@
+**/__pycache__/
+.vscode
+.venv/
+venv/
+.env
+# Node dependencies
+node_modules/
+webapp/node_modules/
+webapp/client/node_modules/
+
+# Build output
+dist/
+build/
+webapp/client/dist/
+
+# Vite cache
+webapp/client/.vite/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# macOS system files
+.DS_Store
+
+# Environment files
+.env.*
+
+# Local config
+*.local
+
+# Excel/CSV temp and backup files
+*~$*.xlsx
+*~$*.csv
+*.xlsx~
+*.csv~
+
+# Coverage reports
+coverage/
+
+# Misc
+*.swp
+*.swo
