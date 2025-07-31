@@ -17,6 +17,12 @@ export default function DataEntryForm() {
   const handleSubmit = async e => {
     e.preventDefault();
     setStatus('');
+    // Validate package_date format
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dateRegex.test(form.package_date)) {
+      setStatus('Error: package_date must be in YYYY-MM-DD format.');
+      return;
+    }
     const res = await fetch('http://localhost:4000/api/entry', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -49,6 +55,9 @@ export default function DataEntryForm() {
                 onChange={handleChange}
                 style={{ width: '100%', padding: 6, marginTop: 4 }}
                 required={!optionalFields.includes(col)}
+                pattern={col === 'package_date' ? '\\d{4}-\\d{2}-\\d{2}' : undefined}
+                title={col === 'package_date' ? 'Format: YYYY-MM-DD' : undefined}
+                placeholder={col === 'package_date' ? 'YYYY-MM-DD' : undefined}
               />
               {optionalFields.includes(col) && (
                 <span style={{ color: '#888', fontSize: 12, marginLeft: 8 }}>(optional)</span>
