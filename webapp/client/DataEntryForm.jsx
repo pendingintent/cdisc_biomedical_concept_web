@@ -23,7 +23,8 @@ export default function DataEntryForm() {
       setStatus('Error: package_date must be in YYYY-MM-DD format.');
       return;
     }
-    const res = await fetch('http://localhost:4000/api/entry', {
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+    const res = await fetch(`${apiUrl}/api/entry`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form)
