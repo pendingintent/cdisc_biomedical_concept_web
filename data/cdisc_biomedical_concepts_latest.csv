@@ -4746,3 +4746,5 @@ package_date,short_name,bc_id,ncit_code,parent_bc_id,bc_categories,synonyms,resu
 2025-07-31,Test BiomedicalConcept,C00000,C00000,C00000,Test category 1; Test category 2,Tests; Validation; etc,Quantitative,This is the first test of the new BC web interface,,,,,,,,
 2025-07-31,Test BiomedicalConcept,C00001,C00001,C00001,Test category 1; Test category 2,Tests; Validation; etc,Quantitative,This is the second test of the new BC web interface,darren system,,,,,,,
 2025-07-31,Test BiomedicalConcept,C00001,C00001,C00001,Test category 1; Test category 2,Tests; Validation; etc,Quantitative,This is the second test of the new BC web interface,darren system,,,C00001,,,,
+2025-07-31,Test BiomedicalConcept,C00001,C00001,C00002,Test category 1; Test category 2,Tests; Validation; etc,Quantitative,This is the second test of the new BC web interface,darren system,,,,,,,
+2025-07-31,Test BiomedicalConcept,C00001,C00001,C00001,Test category 1; Test category 2,Tests; Validation; etc,Quantitative,This is the second test of the new BC web interface,darren system,,,C000005,,,,

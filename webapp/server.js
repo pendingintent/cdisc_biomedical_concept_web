@@ -69,6 +69,27 @@ app.post('/api/entry', async (req, res) => {
   }
 });
 
+
+// API to get all entries in the CSV as JSON
+app.get('/api/entries', (req, res) => {
+  if (!fs.existsSync(CSV_PATH)) {
+    return res.json([]);
+  }
+  const csvData = fs.readFileSync(CSV_PATH, 'utf8');
+  const lines = csvData.split('\n').filter(line => line.trim() !== '');
+  if (lines.length < 2) {
+    return res.json([]);
+  }
+  const headers = lines[0].split(',');
+  const rows = lines.slice(1).map(line => {
+    const values = line.split(',');
+    const row = {};
+    headers.forEach((h, i) => { row[h] = values[i]; });
+    return row;
+  });
+  res.json(rows);
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
