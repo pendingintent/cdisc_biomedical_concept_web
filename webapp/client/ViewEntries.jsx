@@ -118,8 +118,8 @@ export default function ViewEntries() {
           </tr>
         </thead>
         <tbody>
-          {sortedRows.map((row, i) => (
-            <tr key={i}>
+          {sortedRows.map((row) => (
+            <tr key={row.id}>
               {header.map(h => (
                 <td
                   key={h}
